@@ -5,6 +5,7 @@ from character import Prince, Stinker
 
 class Engine:
     def __init__(self):
+        # princeの現在位置を管理,初期位置は現段階では(0,0)のため初期化
         self.prince_dim_x = 0
         self.prince_dim_y = 0
 
@@ -66,10 +67,25 @@ def control_player(self):
             if Engine.dim_judge(0):
                 if Engine.dim_judge(1, self.prince_dim_y):
                     self.prince_dim_y += 1
+                else:
+                    print('Fuck You!!!!!!!!!!!')
+                    continue
+            else:
+                print('Fuck You!!!!!!!!!!!')
+                continue
+
         elif player_input == ('D' or 'd'):
             if Engine.dim_judge(0):
                 if Engine.dim_judge(1, self.prince_dim_x):
                     self.prince_dim_x += 1
+                else:
+                    print('Fuck You!!!!!!!!!!!')
+                    continue
+            else:
+                print('Fuck You!!!!!!!!!!!')
+                continue
+
         else:
             print('Fuck You!!!!!!!!!!!')
             continue
+
