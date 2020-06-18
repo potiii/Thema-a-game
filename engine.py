@@ -8,6 +8,7 @@ class Engine:
         # princeの現在位置を管理,初期位置は現段階では(0,0)のため初期化
         self.prince_dim_x = 0
         self.prince_dim_y = 0
+        self.map = Map()
 
     def dim_judge(self, param, dim=None):
         # param: 0 = 座標判定
@@ -37,55 +38,74 @@ class Engine:
         else:
             return ValueError
 
+    def room_visited(self, x, y):
+        self.map.floor[x][y].is_visited = True
 
-def control_player(self):
-    while True:
-        player_input = input('input...:')
-        if player_input == ('W' or 'w'):
-            if Engine.dim_judge(0):
-                if Engine.dim_judge(2, self.prince_dim_y):
-                    self.prince_dim_y -= 1
+    def fuck(self, x, y):
+        return y, x
+
+    def control_player(self):
+        while True:
+            player_input = input('input...:')
+            if player_input == ('W' or 'w'):
+                if Engine.dim_judge(0):
+                    if Engine.dim_judge(2, self.prince_dim_y):
+                        self.prince_dim_y -= 1
+                        self.map.room_visited(self.prince_dim_x, self.prince_dim_y)
+                    else:
+                        print('Fuck You!!!!!!!!!!!')
+                        continue
                 else:
                     print('Fuck You!!!!!!!!!!!')
                     continue
+
+            elif player_input == ('A' or 'a'):
+                if Engine.dim_judge(0):
+                    if Engine.dim_judge(2, self.prince_dim_x):
+                        self.prince_dim_x -= 1
+                        self.room_visited(self.prince_dim_x, self.prince_dim_y)
+                    else:
+                        print('Fuck You!!!!!!!!!!!')
+                        continue
+                else:
+                    print('Fuck You!!!!!!!!!!!')
+                    continue
+
+            elif player_input == ('S' or 's'):
+                if Engine.dim_judge(0):
+                    if Engine.dim_judge(1, self.prince_dim_y):
+                        self.prince_dim_y += 1
+                        self.room_visited(self.prince_dim_x, self.prince_dim_y)
+
+                    else:
+                        print('Fuck You!!!!!!!!!!!')
+                        continue
+                else:
+                    print('Fuck You!!!!!!!!!!!')
+                    continue
+
+            elif player_input == ('D' or 'd'):
+                if Engine.dim_judge(0):
+                    if Engine.dim_judge(1, self.prince_dim_x):
+                        self.prince_dim_x += 1
+                        self.room_visited(self.prince_dim_x, self.prince_dim_y)
+
+                    else:
+                        print('Fuck You!!!!!!!!!!!')
+                        continue
+                else:
+                    print('Fuck You!!!!!!!!!!!')
+                    continue
+
             else:
                 print('Fuck You!!!!!!!!!!!')
                 continue
 
-        elif player_input == ('A' or 'a'):
-            if Engine.dim_judge(0):
-                if Engine.dim_judge(2, self.prince_dim_x):
-                    self.prince_dim_x -= 1
-                else:
-                    print('Fuck You!!!!!!!!!!!')
-                    continue
-            else:
-                print('Fuck You!!!!!!!!!!!')
-                continue
 
-        elif player_input == ('S' or 's'):
-            if Engine.dim_judge(0):
-                if Engine.dim_judge(1, self.prince_dim_y):
-                    self.prince_dim_y += 1
-                else:
-                    print('Fuck You!!!!!!!!!!!')
-                    continue
-            else:
-                print('Fuck You!!!!!!!!!!!')
-                continue
+def main():
+    engine = Engine()
+    engine.control_player()
 
-        elif player_input == ('D' or 'd'):
-            if Engine.dim_judge(0):
-                if Engine.dim_judge(1, self.prince_dim_x):
-                    self.prince_dim_x += 1
-                else:
-                    print('Fuck You!!!!!!!!!!!')
-                    continue
-            else:
-                print('Fuck You!!!!!!!!!!!')
-                continue
 
-        else:
-            print('Fuck You!!!!!!!!!!!')
-            continue
-
+if __name__ == '__main__':
+    main()

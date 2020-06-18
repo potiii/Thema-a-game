@@ -11,6 +11,9 @@ from character import Stinker, Prince
 class Map:
     def __init__(self):
         self.floor = list()
+
+
+    def floor_create(self):
         for y in range(5):
             floor_y = list()
             for x in range(5):
@@ -50,6 +53,10 @@ class Map:
 
             for w in wall:
                 print(''.join(w))
+
+    def room_visited(self, x, y):
+        room = Room(y,x)
+        self.floor[y][x].room.visit()
 
 
 if __name__ == '__main__':
