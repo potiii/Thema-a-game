@@ -19,6 +19,7 @@ class Prince(Character):
 
         self.is_sword = True
         self.attack += 5
+        return True
 
     def use_potion(self):
         if self.hp < self.max_hp:
@@ -28,7 +29,7 @@ class Prince(Character):
             return False
 
     def in_damage(self, in_damage):
-        super(Prince, self).in_damage(in_damage)
+        super().in_damage(in_damage)
 
 
 class Stinker(Character):
@@ -41,4 +42,4 @@ class Stinker(Character):
             self.attack *= 1.2
 
     def in_damage(self, in_damage):
-        super(Stinker, self).in_damage(in_damage)
+        super().in_damage(in_damage)
