@@ -1,5 +1,5 @@
 import os
-from fuck.Map import Map
+from Map import Map
 
 
 class Game:
@@ -53,11 +53,6 @@ class Game:
             message += 'moved!'
             return message
 
-        # 移動先の部屋は存在するが、ロックされている場合
-        elif new_room and new_room.is_locked:
-            message = 'Kill the stinker!!!'
-            return message
-
         # 移動先の部屋が存在しない(MAP外に出ようとした)場合
         else:
             message = "Can't go there"
@@ -107,20 +102,19 @@ class Game:
             exit()
 
         # superStinkerが存在する and ロックされた部屋がある and 通常のstinkerが存在しない場合 superStinkerの部屋を開放
-        if super_stinker and locked_room and stinker == 0:
+        if super_stinker and locked_room and stinker:
             locked_room.unlock()
 
         return
 
-    def user_input(self, debug=False):
+    def user_input(self, debug=False, fourth_debug=False):
         message = 'Good luck!'
         while True:
             # ゲームデータの更新
             room = self.map.room(self.prince_location_x, self.prince_location_y)
             self.game_data_update()
-            os.system('cls')
+            os.system('clear')
             flag_potion = room and room.is_potion and room.prince and (room.prince.hp < room.prince.max_hp)
-            flag_attack = room and room.stinker and room.prince
 
             # 操作ガイドを表示
             self.map.map_print(debug=debug)
@@ -129,8 +123,6 @@ class Game:
 
             if room and room.prince and room.prince.hp:
                 print(f"prince HP:{room.prince.hp}", end=' ')
-            if flag_attack:
-                print(f"stinker HP:{room.stinker.hp}", end=' ')
             print('')
 
             print('Move Guide')
@@ -146,8 +138,6 @@ class Game:
 
             if flag_potion:
                 print('[U] Use Potion')
-            if flag_attack:
-                print('[X] Attack')
 
             # 入力受付
             user_input = input('INPUT(USER INPUT)\n>')
@@ -168,14 +158,17 @@ class Game:
                 if use_potion:
                     message = 'use potion!'
                     room.destroy('potion')
-
-            elif flag_attack and (user_input == 'X' or user_input == 'x'):
-                room.prince.in_damage(room.stinker.attack)
-                room.stinker.in_damage(room.prince.attack)
-
+            elif fourth_debug and (user_input == 'T' or user_input == 't'):
+                message = 'damage_debug. 10damage!'
+                room.prince.in_damage(10)
             else:
                 continue
 
 
+def main():
     game = Game()
-    game.user_input()
+    game.user_input(fourth_debug=True)
+
+
+if __name__ == '__main__':
+    main()

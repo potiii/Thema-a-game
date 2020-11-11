@@ -1,5 +1,5 @@
 import os
-from fuck.Map import Map
+from force.Map import Map
 
 
 class Game:
@@ -112,7 +112,7 @@ class Game:
 
         return
 
-    def user_input(self, debug=False):
+    def user_input(self, debug=False, fourth_debug=False):
         message = 'Good luck!'
         while True:
             # ゲームデータの更新
@@ -173,9 +173,18 @@ class Game:
                 room.prince.in_damage(room.stinker.attack)
                 room.stinker.in_damage(room.prince.attack)
 
+            elif fourth_debug and (user_input == 'T' or user_input == 't'):
+                message = 'damage_debug. 10damage!'
+                room.prince.in_damage(10)
+
             else:
                 continue
 
 
+def main():
     game = Game()
     game.user_input()
+
+
+if __name__ == '__main__':
+    main()

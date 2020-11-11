@@ -1,5 +1,5 @@
-from fuck.Room import Room
-from fuck.Character import Stinker, Prince
+from force.Room import Room
+from force.Character import Stinker, Prince
 
 
 # stinker hp 25 attack 3 (1,4)(2,1)
